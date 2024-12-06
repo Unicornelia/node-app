@@ -32,4 +32,20 @@ router.get("/:id", async (req, res: Response) => {
   }
 });
 
+router.put("/:id", async (req, res: Response) => {
+  const task: Task | undefined = tasks.find(
+    (task: Task): boolean => task.id === parseInt(req.params.id),
+  );
+
+  if (!task) {
+    res.status(404).send("No task found with id " + req.params.id);
+  } else {
+    task.title = req.body.title || task.title;
+    task.description = req.body.description || task.description;
+    task.completed = req.body.completed || task.completed;
+
+    res.status(200).json(task);
+  }
+});
+
 export default router;
