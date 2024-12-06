@@ -16,8 +16,20 @@ router.post("/", async (req: Request, res: Response) => {
   res.status(201).json(task);
 });
 
-router.get("/", async (req: Request, res: Response) => {
+router.get("/", async (req, res: Response) => {
   res.json(tasks);
+});
+
+router.get("/:id", async (req, res: Response) => {
+  const task: Task | undefined = tasks.find(
+    (task: Task): boolean => task.id === parseInt(req.params.id),
+  );
+
+  if (!task) {
+    res.status(404).send("No task with id " + req.params.id);
+  } else {
+    res.status(200).json(task);
+  }
 });
 
 export default router;
