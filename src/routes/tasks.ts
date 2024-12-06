@@ -16,4 +16,8 @@ router.post("/", async (req: Request, res: Response) => {
   res.status(201).json(task);
 });
 
+router.get("/", async (req: Request, res: Response) => {
+  res.json(tasks);
+});
+
 export default router;
